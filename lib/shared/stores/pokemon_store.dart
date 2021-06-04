@@ -1,0 +1,24 @@
+import 'package:mobx/mobx.dart';
+import 'package:pokedex/models/pokemon_model.dart';
+
+class PokemonStore = _PokemonStoreBase with _$PokemonStore;
+
+abstract class _PokemonStoreBase with Store {
+  @observable
+  ObservableList<PokemonModel> pokemons = <PokemonModel>[].asObservable();
+
+  @observable
+  ObservableList<PokemonModel> pokemonsFiltered =
+      <PokemonModel>[].asObservable();
+
+  @observable
+  PokemonModel pokemonSelected = PokemonModel(name: name, imageUrl: imageUrl, id: id, types: types)
+
+  @action
+  void setListPokemon(List<PokemonModel> value) =>
+      pokemons = value.asObservable();
+
+  @action
+  void setListPokemonFiltered(List<PokemonModel> value) =>
+      pokemonsFiltered = value.asObservable();
+}
