@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/models/pokemon_model.dart';
+import 'package:pokedex/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
   List<PokemonModel> pokemons;
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // get pokemons => widget.pokemons;
+  get pokemons => widget.pokemons;
 
   HomeController controller = HomeController();
 
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: primaryColor0,
       appBar: AppBar(
-        backgroundColor: appBarColor2,
+        backgroundColor: appBarColor,
         centerTitle: true,
         toolbarHeight: 125,
         title: Column(
@@ -48,12 +49,12 @@ class _HomePageState extends State<HomePage> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: mono,
+                  color: gray,
                 ),
-                hintText: 'Encontreum pokémon',
+                hintText: 'Encontre um pokémon',
                 hintStyle: TextStyle(
                   fontSize: 16,
-                  color: mono,
+                  color: gray,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
@@ -69,17 +70,17 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: _body(),
+      body: _body(controller),
     );
   }
 }
 
-_body() {
+_body(HomeController controller) {
   return Container(
     child: Observer(builder: (_) {
-      return ListView.separated(
+      return ListView.builder(
         itemCount: controller.pokemonStore.pokemonsFiltered.length,
-        separatorBuilder: (context, index) {
+        itemBuilder: (context, index) {
           PokemonModel item = controller.pokemonStore.pokemonsFiltered[index];
           return ListTile(
             leading: Image.network(item.imageUrl),
