@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 class PokemonModel {
-  String name;
-  String imageUrl;
-  int id;
-  List<Types> types;
+  late String name;
+  late String imageUrl;
+  late int id;
+  late List<Types> types;
 
   PokemonModel({
     required this.name,
@@ -13,17 +11,16 @@ class PokemonModel {
     required this.types,
   });
 
-  factory PokemonModel.fromMap(Map<String, dynamic> map) {
-    return PokemonModel(
-      name: map['name'],
-      imageUrl: map['sprites']['other']['official-artwork']['front_default'],
-      id: map['id'],
-      types: List<Types>.from(map['types']?.map((x) => Types.fromMap(x))),
-    );
-  }
+  PokemonModel.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    imageUrl = json['sprites']['other']['official-artwork']['front_default'];
+    id = json['id'];
+    types = [];
 
-  factory PokemonModel.fromJson(String source) =>
-      PokemonModel.fromMap(json.decode(source));
+    json['types'].forEach((item) {
+      types.add(Types.fromJson(item['type']));
+    });
+  }
 }
 
 class Types {
@@ -32,17 +29,8 @@ class Types {
 
   Types({required this.name, required this.url});
 
-  // Types.fromJson2(Map<String, dynamic> map) {
-  //   name = map['name'];
-  //   url = map[url];
-  // }
-
-  factory Types.fromMap(Map<String, dynamic> map) {
-    return Types(
-      name: map['name'],
-      url: map['url'],
-    );
+  Types.fromJson(Map<String, dynamic> map) {
+    name = map['name'];
+    url = map['url'];
   }
-
-  factory Types.fromJson(String source) => Types.fromMap(json.decode(source));
 }

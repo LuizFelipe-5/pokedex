@@ -1,6 +1,8 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/pages/home_page/home_page.dart';
 import 'package:pokedex/repositories/pokemon_repository.dart';
+import 'package:pokedex/utils/colors.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
@@ -30,7 +32,30 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            primaryColor,
+            primaryColor1,
+            secondaryColor,
+          ],
+        ),
+      ),
+      child: Bounce(
+        delay: Duration(seconds: 2),
+        infinite: true,
+        child: JelloIn(
+          duration: Duration(
+            seconds: 2,
+          ),
+          child: Image.asset(
+            'assets/images/poke.png',
+            scale: 1.2,
+          ),
+        ),
+      ),
     );
   }
 }
