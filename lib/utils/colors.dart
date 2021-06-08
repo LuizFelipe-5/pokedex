@@ -9,3 +9,4 @@ const gray = Color(0xFF4f4f4f);
 const black = Colors.black;
 const white = Colors.white;
 const divider = Color(0xFFE9E9E9);
+const mono = Color(0xFFA9A9A9);

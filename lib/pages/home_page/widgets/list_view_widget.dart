@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/models/pokemon_model.dart';
+import 'package:pokedex/utils/colors.dart';
 
 class ListViewWidget extends StatelessWidget {
   const ListViewWidget({
@@ -32,7 +33,6 @@ class ListViewWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             PokemonModel item = controller.pokemonStore.pokemonsFiltered[index];
             return ListTile(
-              // contentPadding: EdgeInsets.zero,
               leading: Image.network(item.imageUrl),
               title: Text(item.name),
               subtitle: Text(
@@ -45,9 +45,23 @@ class ListViewWidget extends StatelessWidget {
                   itemCount: item.types.length,
                   itemBuilder: (context, index) {
                     final type = item.types[index];
-                    return CircleAvatar(
-                        backgroundColor: type.avatarColor,
-                        child: SvgPicture.asset(type.imagePath));
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 10,
+                            color: mono,
+                            spreadRadius: 1,
+                          ),
+                        ],
+                      ),
+                      child: CircleAvatar(
+                          backgroundColor: type.avatarColor,
+                          child: SvgPicture.asset(type.imagePath)),
+                    );
                   },
                 ),
               ),
