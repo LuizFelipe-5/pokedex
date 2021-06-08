@@ -32,14 +32,24 @@ class ListViewWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             PokemonModel item = controller.pokemonStore.pokemonsFiltered[index];
             return ListTile(
+              // contentPadding: EdgeInsets.zero,
               leading: Image.network(item.imageUrl),
               title: Text(item.name),
               subtitle: Text(
                 '#${item.id.toString().padLeft(3, '0')}',
               ),
               trailing: Container(
-                color: Colors.red,
-                child: SvgPicture.asset('assets/types/bug.svg'),
+                width: 120,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: item.types.length,
+                  itemBuilder: (context, index) {
+                    final type = item.types[index];
+                    return CircleAvatar(
+                        backgroundColor: type.avatarColor,
+                        child: SvgPicture.asset(type.imagePath));
+                  },
+                ),
               ),
             );
           },
