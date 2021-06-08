@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/models/pokemon_model.dart';
+import 'package:pokedex/pages/home_page/widgets/list_view_widget.dart';
+import 'package:pokedex/shared/widgets/custom_app_bar_widget.dart';
 import 'package:pokedex/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,68 +31,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor0,
-      appBar: AppBar(
-        backgroundColor: appBarColor,
-        centerTitle: true,
-        toolbarHeight: 125,
-        title: Column(
-          children: [
-            Text(
-              'Pokedex',
-              style: TextStyle(
-                color: black,
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              onChanged: controller.getPokemonFiltered,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: gray,
-                ),
-                hintText: 'Encontre um pokémon',
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                  color: gray,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                filled: true,
-                contentPadding: EdgeInsets.all(0),
-              ),
-            ),
-          ],
-        ),
+      backgroundColor: white,
+      appBar: CustomAppBar(controller: controller),
+      body: ListViewWidget(
+        controller: controller,
       ),
-      body: _body(controller),
     );
   }
-}
-
-_body(HomeController controller) {
-  return Container(
-    child: Observer(builder: (_) {
-      return ListView.builder(
-        itemCount: controller.pokemonStore.pokemonsFiltered.length,
-        itemBuilder: (context, index) {
-          PokemonModel item = controller.pokemonStore.pokemonsFiltered[index];
-          return ListTile(
-            leading: Image.network(item.imageUrl),
-            title: Text(item.name),
-            subtitle: Text(
-              '#${item.id.toString().padLeft(2, '0')}',
-            ),
-          );
-        },
-      );
-    }),
-  );
 }
