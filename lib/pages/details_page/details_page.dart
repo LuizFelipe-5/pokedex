@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/models/pokemon_model.dart';
@@ -33,7 +32,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     // SchedulerBinding.instance(addPostFrameCallback(_){
-    _pageController.jumpToPage(indexCurrentPokemon);
+    // _pageController.jumpToPage(indexCurrentPokemon);
 
     //   });
 
