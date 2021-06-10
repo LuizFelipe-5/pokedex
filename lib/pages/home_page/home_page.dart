@@ -7,8 +7,9 @@ import 'package:pokedex/shared/widgets/custom_app_bar_widget.dart';
 import 'package:pokedex/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
+  // final
   List<PokemonModel> pokemons;
-
+  //apagar
   HomePage(this.pokemons);
 
   @override
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //apagar
   get pokemons => widget.pokemons;
 
   HomeController controller = HomeController();

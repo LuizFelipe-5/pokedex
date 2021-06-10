@@ -13,8 +13,9 @@ abstract class _PokemonStoreBase with Store {
   ObservableList<PokemonModel> pokemonsFiltered =
       <PokemonModel>[].asObservable();
 
-  // @observable
-  // PokemonModel pokemonSelected = PokemonModel();
+  @observable
+  PokemonModel pokemonSelected =
+      PokemonModel(name: "", imageUrl: "", types: [], id: 0);
 
   @action
   void setListPokemon(List<PokemonModel> value) =>
@@ -23,4 +24,7 @@ abstract class _PokemonStoreBase with Store {
   @action
   void setListPokemonFiltered(List<PokemonModel> value) =>
       pokemonsFiltered = value.asObservable();
+
+  @action
+  void setPokemonSelected(PokemonModel pokemon) => pokemonSelected = pokemon;
 }

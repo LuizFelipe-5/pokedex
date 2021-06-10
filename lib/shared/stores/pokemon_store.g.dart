@@ -40,6 +40,21 @@ mixin _$PokemonStore on _PokemonStoreBase, Store {
     });
   }
 
+  final _$pokemonSelectedAtom = Atom(name: '_PokemonStoreBase.pokemonSelected');
+
+  @override
+  PokemonModel get pokemonSelected {
+    _$pokemonSelectedAtom.reportRead();
+    return super.pokemonSelected;
+  }
+
+  @override
+  set pokemonSelected(PokemonModel value) {
+    _$pokemonSelectedAtom.reportWrite(value, super.pokemonSelected, () {
+      super.pokemonSelected = value;
+    });
+  }
+
   final _$_PokemonStoreBaseActionController =
       ActionController(name: '_PokemonStoreBase');
 
@@ -66,10 +81,22 @@ mixin _$PokemonStore on _PokemonStoreBase, Store {
   }
 
   @override
+  void setPokemonSelected(PokemonModel pokemon) {
+    final _$actionInfo = _$_PokemonStoreBaseActionController.startAction(
+        name: '_PokemonStoreBase.setPokemonSelected');
+    try {
+      return super.setPokemonSelected(pokemon);
+    } finally {
+      _$_PokemonStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 pokemons: ${pokemons},
-pokemonsFiltered: ${pokemonsFiltered}
+pokemonsFiltered: ${pokemonsFiltered},
+pokemonSelected: ${pokemonSelected}
     ''';
   }
 }
