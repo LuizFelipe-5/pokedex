@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/models/pokemon_model.dart';
+import 'package:pokedex/pages/details_page/details_page.dart';
 import 'package:pokedex/utils/colors.dart';
 
 class ListViewWidget extends StatelessWidget {
@@ -37,17 +38,25 @@ class ListViewWidget extends StatelessWidget {
           },
           itemCount: controller.pokemonStore.pokemonsFiltered.length,
           itemBuilder: (context, index) {
-            final pokemon = controller.pokemonStore.pokemonsFiltered[index];
+            PokemonModel pokemon =
+                controller.pokemonStore.pokemonsFiltered[index];
             return Container(
               color: controller.pokemonStore.pokemonSelected == pokemon
                   ? primaryColor0
                   : white,
               child: ListTile(
                 onTap: () {
-                  controller.pokemonStore.setPokemonSelected(pokemon);
+                  controller.selectPokemon(
+                      pokemon: pokemon, context: context, index: index);
                 },
                 leading: Image.network(pokemon.imageUrl),
-                title: Text(pokemon.name),
+                title: Text(
+                  pokemon.name,
+                  style: TextStyle(
+                      color: controller.pokemonStore.pokemonSelected == pokemon
+                          ? white
+                          : mono),
+                ),
                 subtitle: Text(
                   '#${pokemon.id.toString().padLeft(3, '0')}',
                 ),
